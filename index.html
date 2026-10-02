@@ -1,1 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>OneSearch</title>
+
+    <meta
+        name="description"
+        content="OneSearch — find information, products, services and answers in one place."
+    >
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #ffffff;
+            color: #111827;
+            min-height: 100vh;
+        }
+
+        header {
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 35px;
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 800;
+            color: #2563eb;
+            letter-spacing: -1px;
+        }
+
+        nav {
+            display: flex;
+            gap: 22px;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #4b5563;
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            color: #2563eb;
+        }
+
+        .hero {
+            max-width: 900px;
+            margin: 105px auto 0;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(42px, 7vw, 72px);
+            line-height: 1;
+            letter-spacing: -4px;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: #2563eb;
+        }
+
+        .hero p {
+            color: #6b7280;
+            font-size: 19px;
+            margin-bottom: 35px;
+        }
+
+        .search-box {
+            display: flex;
+            width: 100%;
+            max-width: 760px;
+            margin: auto;
+            padding: 7px;
+            border: 1px solid #d1d5db;
+            border-radius: 18px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            background: white;
+        }
+
+        .search-box input {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 17px;
+            font-size: 16px;
+            min-width: 0;
+        }
+
+        .search-box button {
+            border: none;
+            background: #2563eb;
+            color: white;
+            padding: 0 25px;
+            border-radius: 13px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .search-box button:hover {
+            background: #1d4ed8;
+        }
+
+        .categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .category {
+            border: 1px solid #e5e7eb;
+            background: #f9fafb;
+            padding: 9px 15px;
+            border-radius: 999px;
+            font-size: 13px;
+            color: #4b5563;
+            cursor: pointer;
+        }
+
+        .category:hover {
+            border-color: #2563eb;
+            color: #2563eb;
+        }
+
+        .ad {
+            max-width: 728px;
+            height: 90px;
+            margin: 70px auto 0;
+            border: 1px dashed #d1d5db;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #9ca3af;
+            font-size: 12px;
+        }
+
+        .features {
+            max-width: 1050px;
+            margin: 70px auto;
+            padding: 0 25px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 25px;
+            background: white;
+        }
+
+        .card .icon {
+            font-size: 27px;
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            margin-bottom: 8px;
+            font-size: 17px;
+        }
+
+        .card p {
+            color: #6b7280;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        #results {
+            display: none;
+            max-width: 850px;
+            margin: 45px auto;
+            padding: 0 20px;
+        }
+
+        #results h2 {
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+        .result {
+            padding: 20px 0;
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        .result h3 {
+            color: #2563eb;
+            margin-bottom: 7px;
+        }
+
+        .result p {
+            color: #6b7280;
+            line-height: 1.5;
+        }
+
+        footer {
+            border-top: 1px solid #eeeeee;
+            padding: 30px;
+            text-align: center;
+            color: #9ca3af;
+            font-size: 13px;
+        }
+
+        @media (max-width: 700px) {
+            header {
+                padding: 0 18px;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .hero {
+                margin-top: 70px;
+            }
+
+            .hero h1 {
+                letter-spacing: -2px;
+            }
+
+            .search-box {
+                border-radius: 14px;
+            }
+
+            .search-box button {
+                padding: 0 16px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .ad {
+                margin-left: 20px;
+                margin-right: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">OneSearch</div>
+
+    <nav>
+        <a href="#">Home</a>
+        <a href="#features">Features</a>
+        <a href="#about">About</a>
+    </nav>
+</header>
+
+
+<main>
+
+    <section class="hero">
+
+        <h1>
+            Find <span>anything.</span>
+        </h1>
+
+        <p>
+            Search the web in a simpler, smarter way.
+        </p>
+
+        <form class="search-box" id="searchForm">
+
+            <input
+                id="searchInput"
+                type="text"
+                placeholder="What are you looking for?"
+                autocomplete="off"
+            >
+
+            <button type="submit">
+                Search
+            </button>
+
+        </form>
+
+
+        <div class="categories">
+
+            <button class="category" data-search="products">Products</button>
+
+            <button class="category" data-search="information">
+                Information
+            </button>
+
+            <button class="category" data-search="travel">
+                Travel
+            </button>
+
+            <button class="category" data-search="technology">
+                Technology
+            </button>
+
+            <button class="category" data-search="services">
+                Services
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <div class="ad">
+        Advertisement
+    </div>
+
+
+    <section id="results">
+
+        <h2>Search results</h2>
+
+        <div id="resultList"></div>
+
+    </section>
+
+
+    <section class="features" id="features">
+
+        <div class="card">
+
+            <div class="icon">🔎</div>
+
+            <h3>One simple search</h3>
+
+            <p>
+                Describe what you need instead of trying to figure
+                out the perfect search keywords.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">📊</div>
+
+            <h3>Organized results</h3>
+
+            <p>
+                OneSearch is designed to turn scattered information
+                into something easier to understand.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">⚡</div>
+
+            <h3>Built for speed</h3>
+
+            <p>
+                A clean interface that gets you to the information
+                you need quickly.
+            </p>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer id="about">
+
+    © 2026 OneSearch
+
+</footer>
+
+
+<script>
+
+    const form = document.getElementById("searchForm");
+    const input = document.getElementById("searchInput");
+    const results = document.getElementById("results");
+    const resultList = document.getElementById("resultList");
+
+
+    function search(query) {
+
+        query = query.trim();
+
+        if (!query) {
+            return;
+        }
+
+        resultList.innerHTML = "";
+
+        const encodedQuery = encodeURIComponent(query);
+
+        const searchEngines = [
+
+            {
+                name: "Google",
+                description:
+                    "Search the web for information related to your request.",
+                url:
+                    "https://www.google.com/search?q=" + encodedQuery
+            },
+
+            {
+                name: "Bing",
+                description:
+                    "Search another major web index for your request.",
+                url:
+                    "https://www.bing.com/search?q=" + encodedQuery
+            },
+
+            {
+                name: "Wikipedia",
+                description:
+                    "Look for encyclopedia information related to your request.",
+                url:
+                    "https://en.wikipedia.org/wiki/Special:Search?search=" + encodedQuery
+            }
+
+        ];
+
+
+        searchEngines.forEach(engine => {
+
+            const div = document.createElement("div");
+
+            div.className = "result";
+
+            div.innerHTML = `
+                <h3>
+                    <a
+                        href="${engine.url}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        ${engine.name}
+                    </a>
+                </h3>
+
+                <p>${engine.description}</p>
+            `;
+
+            resultList.appendChild(div);
+
+        });
+
+
+        results.style.display = "block";
+
+        results.scrollIntoView({
+            behavior: "smooth"
+        });
+
+    }
+
+
+    form.addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        search(input.value);
+
+    });
+
+
+    document.querySelectorAll(".category").forEach(button => {
+
+        button.addEventListener("click", function() {
+
+            input.value = this.dataset.search;
+
+            search(input.value);
+
+        });
+
+    });
+
+</script>
+
+</body>
+</html>
